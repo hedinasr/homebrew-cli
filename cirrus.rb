@@ -19,7 +19,7 @@ class Cirrus < Formula
       end
 
       service do
-        run [bin/"cirrus", "worker", "run", "--token", "$HOMEBREW_CIRRUS_TOKEN"]
+        run [bin/"cirrus", "worker", "run", "--token", ENV['HOMEBREW_CIRRUS_TOKEN']]
         keep_alive successful_exit: true
         environment_variables PATH: std_service_path_env
         error_log_path var/"log/cirrus.log"
@@ -37,7 +37,7 @@ class Cirrus < Formula
       end
 
       service do
-        run [bin/"cirrus", "worker", "run", "--token", "$HOMEBREW_CIRRUS_TOKEN"]
+        run [bin/"cirrus", "worker", "run", "--token", ENV['HOMEBREW_CIRRUS_TOKEN']]
         keep_alive successful_exit: true
         environment_variables PATH: std_service_path_env
         error_log_path var/"log/cirrus.log"
