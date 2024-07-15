@@ -5,7 +5,7 @@
 class Cirrus < Formula
   desc ""
   homepage ""
-  version "0.120.4"
+  version "0.120.5"
   license "AGPL-3.0-only"
 
   on_macos do
@@ -34,6 +34,15 @@ class Cirrus < Formula
       def install
         bin.install "cirrus"
         generate_completions_from_executable(bin/"cirrus", "completion")
+      end
+
+      service do
+        run [bin/"cirrus", "worker", "run", "--token", "$HOMEBREW_CIRRUS_TOKEN"]
+        keep_alive successful_exit: true
+        environment_variables PATH: std_service_path_env
+        error_log_path var/"log/cirrus.log"
+        log_path var/"log/cirrus.log"
+        working_dir Dir.home
       end
     end
   end
